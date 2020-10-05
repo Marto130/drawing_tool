@@ -59,6 +59,11 @@ Por medio de este listener se obtiene la informacion necesaria para trazar las l
     context.strokeStyle= 'red';
   })
 
+  socket.on('eraser', ()=> {
+    context.clearRect(0, 0, width, height);
+  })
+
+
 /*La funcion mainLoop (recursiva) detecta si se cumplen las condiciones para comenzar un trazo
 de linea y recolecta la informacion necesaria para poder generarla.*/
   function mainLoop(){
@@ -69,6 +74,14 @@ de linea y recolecta la informacion necesaria para poder generarla.*/
         socket.emit('draw_line', {line: [mouse.pos, mouse.pos_prev]})
         mouse.move= false;
     }
+
+      const erase= document.querySelector('#btn-eraser')
+      erase.addEventListener('click', (e)=> {
+        
+        context.clearRect(0, 0, width, height);
+        socket.emit('eraser',{});
+      })
+
     //Se actualiza el estado de por_prev con la ultima posicion registrada.
     mouse.pos_prev= {x: mouse.pos.x, y: mouse.pos.y}
     //Se vuelve a llamar a la funcion mainLoop

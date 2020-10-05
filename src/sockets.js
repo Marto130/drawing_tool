@@ -17,5 +17,10 @@ module.exports = io => {
       var_history.push(data.line);
       io.emit('draw_line', data);
     })
+
+    socket.on('eraser', (data)=> {
+      var_history.splice(0, var_history.length-1)
+      io.emit('eraser', {})
+    })
   })
 }
