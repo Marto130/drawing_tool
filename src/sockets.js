@@ -19,8 +19,8 @@ module.exports = io => {
     })
 
     socket.on('eraser', (data)=> {
-      var_history.splice(0, var_history.length-1)
-      io.emit('eraser', {})
+      var_history.splice(0, var_history.length)
+      io.emit('eraser')
     })
   })
 }
